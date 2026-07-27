@@ -1,1 +1,119 @@
 
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>साइट मेंटेनेंस</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .card {
+            max-width: 600px;
+            padding: 50px 30px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 24px;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            transition: 0.3s;
+        }
+        .icon { font-size: 4rem; margin-bottom: 10px; }
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .timer-box {
+            background: rgba(255,255,255,0.08);
+            padding: 15px 25px;
+            border-radius: 60px;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        .timer {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            color: #f1f5f9;
+        }
+        .timer span { color: #94a3b8; font-size: 1.2rem; }
+        .social a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 1.8rem;
+            transition: 0.3s;
+        }
+        .social a:hover { color: #38bdf8; transform: translateY(-3px); }
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            .timer { font-size: 1.8rem; }
+            .card { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="icon">🛠️</div>
+        <h1>मेंटेनेंस मोड</h1>
+        <p>हम अपनी साइट को बेहतर बना रहे हैं।<br>कुछ ही समय में वापस आएंगे, धैर्य रखें! 🙏</p>
+        
+        <div class="timer-box">
+            <div class="timer" id="countdown">02:00:00</div>
+        </div>
+
+        <div class="social">
+            <a href="#">📘</a>
+            <a href="#">🐦</a>
+            <a href="#">📷</a>
+            <a href="#">💬</a>
+        </div>
+    </div>
+
+    <script>
+        // काउंटडाउन टाइमर (2 घंटे)
+        let hours = 2, minutes = 0, seconds = 0;
+        function updateTimer() {
+            if (seconds === 0) {
+                if (minutes === 0) {
+                    if (hours === 0) return;
+                    hours--;
+                    minutes = 59;
+                } else {
+                    minutes--;
+                }
+                seconds = 59;
+            } else {
+                seconds--;
+            }
+            document.getElementById('countdown').textContent = 
+                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            setTimeout(updateTimer, 1000);
+        }
+        updateTimer();
+    </script>
+
+</body>
+</html>
