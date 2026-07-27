@@ -1,118 +1,330 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>साइट मेंटेनेंस</title>
+    <title>मेंटेनेंस मोड</title>
+    <!-- फॉन्ट: इंटर (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
+        /* ===== रीसेट & बेस ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
-            height: 100vh;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            background: #0b0d1a;
             color: #fff;
-            text-align: center;
             padding: 20px;
+            overflow: hidden;
+            position: relative;
         }
+
+        /* ===== एनिमेटेड फ्लोटिंग बैकग्राउंड ===== */
+        .bg-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .shape {
+            position: absolute;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(129, 140, 248, 0.15));
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: floatShape 15s infinite alternate ease-in-out;
+        }
+        .shape:nth-child(1) { width: 300px; height: 300px; top: -100px; left: -100px; animation-duration: 12s; }
+        .shape:nth-child(2) { width: 400px; height: 400px; bottom: -150px; right: -150px; animation-duration: 18s; animation-delay: 2s; }
+        .shape:nth-child(3) { width: 200px; height: 200px; top: 50%; left: 50%; transform: translate(-50%, -50%); animation-duration: 10s; animation-delay: 4s; }
+
+        @keyframes floatShape {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.2); }
+        }
+
+        /* ===== मुख्य कार्ड ===== */
         .card {
-            max-width: 600px;
-            padding: 50px 30px;
-            background: rgba(255,255,255,0.06);
-            border-radius: 24px;
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.08);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            position: relative;
+            z-index: 1;
+            max-width: 650px;
+            width: 100%;
+            padding: 50px 40px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 32px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            text-align: center;
             transition: 0.3s;
         }
-        .icon { font-size: 4rem; margin-bottom: 10px; }
+
+        /* ===== आइकन (स्पिनिंग गियर) ===== */
+        .icon-wrapper {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 80px;
+            height: 80px;
+            background: rgba(56, 189, 248, 0.1);
+            border-radius: 50%;
+            margin-bottom: 20px;
+            animation: pulseGlow 2s infinite alternate;
+        }
+        .icon-wrapper svg {
+            width: 45px;
+            height: 45px;
+            fill: none;
+            stroke: #38bdf8;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: spin 6s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.3); }
+            100% { box-shadow: 0 0 30px 10px rgba(56, 189, 248, 0.1); }
+        }
+
+        /* ===== टेक्स्ट ===== */
         h1 {
-            font-size: 2.8rem;
+            font-size: 2.6rem;
             font-weight: 700;
             margin-bottom: 12px;
-            background: linear-gradient(to right, #38bdf8, #818cf8);
+            background: linear-gradient(135deg, #38bdf8, #a78bfa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         p {
-            font-size: 1.2rem;
-            color: #cbd5e1;
+            font-size: 1.1rem;
+            color: #94a3b8;
             line-height: 1.6;
-            margin-bottom: 25px;
-        }
-        .timer-box {
-            background: rgba(255,255,255,0.08);
-            padding: 15px 25px;
-            border-radius: 60px;
-            display: inline-block;
             margin-bottom: 30px;
         }
-        .timer {
-            font-size: 2.5rem;
-            font-weight: 600;
-            letter-spacing: 4px;
+
+        /* ===== टाइमर (बॉक्स स्टाइल) ===== */
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .time-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            border-radius: 16px;
+            min-width: 70px;
+            backdrop-filter: blur(4px);
+        }
+        .time-box .num {
+            font-size: 2.8rem;
+            font-weight: 700;
             color: #f1f5f9;
+            display: block;
+            line-height: 1;
         }
-        .timer span { color: #94a3b8; font-size: 1.2rem; }
-        .social a {
-            display: inline-block;
-            margin: 0 10px;
-            color: #94a3b8;
-            text-decoration: none;
-            font-size: 1.8rem;
+        .time-box .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #64748b;
+            letter-spacing: 1px;
+            margin-top: 6px;
+            display: block;
+        }
+        .time-colon {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            padding-bottom: 10px;
+        }
+
+        /* ===== प्रोग्रेस बार ===== */
+        .progress-wrap {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, #38bdf8, #a78bfa);
+            border-radius: 10px;
+            transition: width 1s linear;
+        }
+
+        /* ===== ईमेल सब्सक्राइब (लुक के लिए) ===== */
+        .subscribe {
+            display: flex;
+            gap: 10px;
+            max-width: 400px;
+            margin: 0 auto 25px auto;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 6px;
+            border-radius: 60px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .subscribe input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 12px 18px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+        .subscribe input::placeholder { color: #64748b; }
+        .subscribe button {
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
             transition: 0.3s;
+            font-size: 0.95rem;
         }
-        .social a:hover { color: #38bdf8; transform: translateY(-3px); }
-        @media (max-width: 480px) {
+        .subscribe button:hover { transform: scale(1.03); box-shadow: 0 0 20px rgba(56, 189, 248, 0.3); }
+
+        /* ===== सोशल आइकॉन ===== */
+        .social {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+        }
+        .social a {
+            color: #64748b;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: 0.3s;
+            display: inline-flex;
+            padding: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.03);
+        }
+        .social a:hover {
+            color: #38bdf8;
+            transform: translateY(-4px);
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        /* ===== रिस्पॉन्सिव ===== */
+        @media (max-width: 600px) {
+            .card { padding: 35px 20px; }
             h1 { font-size: 2rem; }
-            .timer { font-size: 1.8rem; }
-            .card { padding: 30px 20px; }
+            .timer-container { gap: 8px; }
+            .time-box { padding: 10px 12px; min-width: 55px; }
+            .time-box .num { font-size: 2rem; }
+            .time-colon { font-size: 1.8rem; }
+            .subscribe { flex-direction: column; border-radius: 20px; gap: 10px; padding: 15px; }
+            .subscribe button { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <div class="icon">🛠️</div>
-        <h1>मेंटेनेंस मोड</h1>
-        <p>हम अपनी साइट को बेहतर बना रहे हैं।<br>कुछ ही समय में वापस आएंगे, धैर्य रखें! 🙏</p>
-        
-        <div class="timer-box">
-            <div class="timer" id="countdown">02:00:00</div>
-        </div>
-
-        <div class="social">
-            <a href="#">📘</a>
-            <a href="#">🐦</a>
-            <a href="#">📷</a>
-            <a href="#">💬</a>
-        </div>
+    <!-- ===== बैकग्राउंड शेप्स ===== -->
+    <div class="bg-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
     </div>
 
+    <!-- ===== मेन कार्ड ===== -->
+    <div class="card">
+        
+        <!-- आइकन (SVG Gear) -->
+        <div class="icon-wrapper">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2a9.96 9.96 0 0 1 6.29 2.21l-2.32 2.32a5.97 5.97 0 0 0-1.13-0.87L12 2z" />
+                <path d="M22 12a9.96 9.96 0 0 1-2.21 6.29l-2.32-2.32c0.34-0.35 0.64-0.73 0.87-1.13L22 12z" />
+                <path d="M12 22a9.96 9.96 0 0 1-6.29-2.21l2.32-2.32c0.35 0.34 0.73 0.64 1.13 0.87L12 22z" />
+                <path d="M2 12a9.96 9.96 0 0 1 2.21-6.29l2.32 2.32c-0.34 0.35-0.64 0.73-0.87 1.13L2 12z" />
+                <circle cx="12" cy="12" r="3" />
+            </svg>
+        </div>
+
+        <h1>बेहतर अनुभव के लिए तैयार</h1>
+        <p>हम अपनी साइट को अपग्रेड कर रहे हैं।<br>जल्द ही नए फीचर्स के साथ वापस आएंगे!</p>
+
+        <!-- टाइमर -->
+        <div class="timer-container">
+            <div class="time-box"><span class="num" id="hrs">02</span><span class="label">घंटे</span></div>
+            <div class="time-colon">:</div>
+            <div class="time-box"><span class="num" id="min">00</span><span class="label">मिनट</span></div>
+            <div class="time-colon">:</div>
+            <div class="time-box"><span class="num" id="sec">00</span><span class="label">सेकंड</span></div>
+        </div>
+
+        <!-- प्रोग्रेस बार -->
+        <div class="progress-wrap">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <!-- ईमेल सब्सक्राइब (डेमो) -->
+        <div class="subscribe">
+            <input type="email" placeholder="ईमेल डालें, अपडेट पाएं">
+            <button>सूचित करें</button>
+        </div>
+
+        <!-- सोशल लिंक्स -->
+        <div class="social">
+            <a href="#" title="Facebook">📘</a>
+            <a href="#" title="Twitter">🐦</a>
+            <a href="#" title="Instagram">📷</a>
+            <a href="#" title="YouTube">▶️</a>
+        </div>
+
+    </div>
+
+    <!-- ===== जावास्क्रिप्ट (टाइमर + प्रोग्रेस) ===== -->
     <script>
-        // काउंटडाउन टाइमर (2 घंटे)
-        let hours = 2, minutes = 0, seconds = 0;
+        // 2 घंटे = 7200 सेकंड
+        let totalSeconds = 7200;
+        let remainingSeconds = totalSeconds;
+
         function updateTimer() {
-            if (seconds === 0) {
-                if (minutes === 0) {
-                    if (hours === 0) return;
-                    hours--;
-                    minutes = 59;
-                } else {
-                    minutes--;
-                }
-                seconds = 59;
-            } else {
-                seconds--;
+            if (remainingSeconds <= 0) {
+                document.getElementById('hrs').textContent = '00';
+                document.getElementById('min').textContent = '00';
+                document.getElementById('sec').textContent = '00';
+                document.getElementById('progressFill').style.width = '0%';
+                return;
             }
-            document.getElementById('countdown').textContent = 
-                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            setTimeout(updateTimer, 1000);
+
+            const hrs = Math.floor(remainingSeconds / 3600);
+            const mins = Math.floor((remainingSeconds % 3600) / 60);
+            const secs = remainingSeconds % 60;
+
+            document.getElementById('hrs').textContent = String(hrs).padStart(2, '0');
+            document.getElementById('min').textContent = String(mins).padStart(2, '0');
+            document.getElementById('sec').textContent = String(secs).padStart(2, '0');
+
+            // प्रोग्रेस अपडेट
+            const progress = (remainingSeconds / totalSeconds) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+
+            remainingSeconds--;
         }
-        updateTimer();
+
+        // हर 1 सेकंड पर अपडेट
+        setInterval(updateTimer, 1000);
+        updateTimer(); // पहली बार तुरंत चलाएं
     </script>
 
 </body>
